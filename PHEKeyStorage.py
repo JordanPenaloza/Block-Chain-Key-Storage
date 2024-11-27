@@ -117,11 +117,11 @@ def main():
     blockchain = PaillierBlockchain(BLOCKCHAIN_URL, CONTRACT_ADDRESS, CONTRACT_ABI)
     paillier = PaillierEncryption(key_size=256)
 
-    # Step 1: Display and store the public key
+    # Display and store the public key
     paillier.display_keys()
     blockchain.store_public_key(paillier.public_key["n"], paillier.public_key["g"])
 
-    # Step 2: Perform encrypted computations (e.g., voting simulation)
+    # Perform encrypted computations (e.g., voting simulation)
     initial_vote = 1
     encrypted_tally = paillier.encrypt(plaintext=initial_vote)
     print(f"Initial encrypted tally: {encrypted_tally}")
@@ -132,7 +132,7 @@ def main():
         encrypted_tally += encrypted_vote
         print(f"Encrypted vote added. Current tally: {encrypted_tally}")
 
-    # Step 3: Decrypt final tally and store on-chain
+    # Decrypt final tally and store on-chain
     final_tally = paillier.decrypt(encrypted_tally)
     print(f"Final tally (decrypted): {final_tally}")
     blockchain.store_final_tally(final_tally)
