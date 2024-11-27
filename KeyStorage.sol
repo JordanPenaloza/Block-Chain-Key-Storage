@@ -1,17 +1,25 @@
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-contract KeyStorage {
-    uint256[] public keyChunks;
+contract PaillierPublicKeyStorage {
+    // Public key components
+    uint256 public n; // Modulus
+    uint256 public g; // Generator
 
-    // Function to store larger key chunks
-    function storeKey(uint256[] memory _chunks) public {
-        delete keyChunks;
-        for (uint i = 0; i < _chunks.length; i++) {
-            keyChunks.push(_chunks[i]);
-        }
+    // Event for logging key storage
+    event PublicKeyStored(uint256 n, uint256 g);
+
+    // Function to set the public key (only owner or specific role can call, if needed)
+    function setPublicKey(uint256 _n, uint256 _g) public {
+        n = _n;
+        g = _g;
+
+        // Emit event for transparency
+        emit PublicKeyStored(_n, _g);
     }
 
-    function getKey() public view returns (uint256[] memory) {
-        return keyChunks;
+    // Retrieve the public key (optional, since n and g are public variables)
+    function getPublicKey() public view returns (uint256, uint256) {
+        return (n, g);
     }
 }
