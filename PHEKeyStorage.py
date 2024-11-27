@@ -126,7 +126,7 @@ def main():
     encrypted_tally = paillier.encrypt(plaintext=initial_vote)
     print(f"Initial encrypted tally: {encrypted_tally}")
 
-    votes = [1, 1, 1, 1]  # Example votes
+    votes = [1, 1, 1]  # Example votes
     for vote in votes:
         encrypted_vote = paillier.encrypt(plaintext=vote)
         encrypted_tally += encrypted_vote
